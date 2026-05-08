@@ -30,7 +30,15 @@ const { title, description, image = FallbackImage } = Astro.props;
 	title={SITE_TITLE}
 	href={new URL('rss.xml', Astro.site)}
 />
-<meta name="generator" content={Astro.generator} />
+
+<script is:inline>
+	const identityHash = window.location.hash || '';
+	const hasIdentityToken = identityHash.includes('invite_token=') || identityHash.includes('recovery_token=');
+
+	if (hasIdentityToken && !window.location.pathname.startsWith('/admin')) {
+		window.location.replace(`/admin/${identityHash}`);
+	}
+</script>
 
 <Font cssVariable="--font-atkinson" preload />
 
