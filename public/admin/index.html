@@ -9,6 +9,13 @@
 	<body>
 		<script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 		<script>
+			const identityHash = window.location.hash || '';
+			const hasIdentityToken = identityHash.includes('invite_token=') || identityHash.includes('recovery_token=');
+
+			if (hasIdentityToken && !window.location.pathname.startsWith('/admin')) {
+				window.location.replace(`/admin/${identityHash}`);
+			}
+
 			if (window.netlifyIdentity) {
 				window.netlifyIdentity.on('init', (user) => {
 					if (!user) {
