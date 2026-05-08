@@ -8,8 +8,6 @@ locale: tr
 logo:
   src: "/logo-avatar.png"
   show_in_header: true
-site_url: /
-display_url: /
 search: true
 
 collections:
