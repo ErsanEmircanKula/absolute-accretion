@@ -5,34 +5,12 @@ publish_mode: editorial_workflow
 media_folder: "src/assets/uploads"
 public_folder: "../../assets/uploads"
 locale: tr
-logo:
-  src: "/logo-avatar.png"
-  show_in_header: true
-search: true
-
 collections:
   - name: blog
     label: Blog Yazıları
-    label_singular: Blog Yazısı
     folder: src/content/blog
     create: true
     slug: "{{slug}}"
-    extension: md
-    format: frontmatter
-    summary: "{{title}}"
-    sortable_fields: ["commit_date", "title", "pubDate", "series", "category"]
-    view_groups:
-      - label: Seri
-        field: series
-      - label: Kategori
-        field: category
-    view_filters:
-      - label: Fikir Dizini
-        field: series
-        pattern: Fikir Dizini
-      - label: Kayıt Dışı
-        field: series
-        pattern: Kayıt Dışı
     fields:
       - label: Başlık
         name: title
@@ -40,29 +18,11 @@ collections:
       - label: Kısa Açıklama
         name: description
         widget: text
-      - label: Seri
-        name: series
-        widget: select
-        options:
-          - Fikir Dizini
-          - Kayıt Dışı
-        default: Fikir Dizini
       - label: Kategori
         name: category
-        widget: select
-        allow_additional_values: true
-        options:
-          - Genel
-          - Tümü
-          - Siyaset
-          - Kültür
-          - Ekonomi
-          - Toplum
-          - Teknoloji
-          - Medya
-          - Röportaj
-          - Analiz
-          - Notlar
+        widget: string
+        required: false
+        hint: İstediğiniz kategori adını yazabilirsiniz (ör. Gündem, Sanat, Teknoloji).
       - label: Yayın Tarihi
         name: pubDate
         widget: datetime
@@ -83,20 +43,3 @@ collections:
       - label: İçerik
         name: body
         widget: markdown
-        buttons:
-          - bold
-          - italic
-          - strikethrough
-          - code
-          - link
-          - heading-one
-          - heading-two
-          - quote
-          - bulleted-list
-          - numbered-list
-        editor_components:
-          - image
-          - code-block
-        modes:
-          - raw
-          - rich_text
