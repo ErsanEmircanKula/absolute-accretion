@@ -1,11 +1,11 @@
 ---
-title: 'Markdown Style Guide'
-description: 'Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.'
-pubDate: 'Jun 19 2024'
+title: 'Markdown Stil Rehberi'
+description: 'Blog yazılarımız için Markdown sözdizimi, başlıklar, tablolar ve daha fazlasının eksiksiz rehberi.'
+pubDate: '2024-06-19'
 heroImage: '../../assets/blog-placeholder-1.jpg'
 ---
 
-Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.
+Burada Astro'da Markdown içeriği yazarken kullanabileceğiniz temel Markdown sözdiziminin örnekleri bulunmaktadır.
 
 ## Headings
 

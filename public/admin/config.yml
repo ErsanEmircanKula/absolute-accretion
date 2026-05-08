@@ -1,0 +1,106 @@
+backend:
+  name: git-gateway
+  branch: main
+
+local_backend: true
+publish_mode: editorial_workflow
+media_folder: "src/assets/uploads"
+public_folder: "../../assets/uploads"
+locale: tr
+logo:
+  src: "/logo-avatar.png"
+  show_in_header: true
+site_url: /
+display_url: /
+search: true
+
+collections:
+  - name: blog
+    label: Blog Yazıları
+    label_singular: Blog Yazısı
+    folder: src/content/blog
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    summary: "{{title}}"
+    sortable_fields: ["commit_date", "title", "pubDate", "series", "category"]
+    view_groups:
+      - label: Seri
+        field: series
+      - label: Kategori
+        field: category
+    view_filters:
+      - label: Fikir Dizini
+        field: series
+        pattern: Fikir Dizini
+      - label: Kayıt Dışı
+        field: series
+        pattern: Kayıt Dışı
+    fields:
+      - label: Başlık
+        name: title
+        widget: string
+      - label: Kısa Açıklama
+        name: description
+        widget: text
+      - label: Seri
+        name: series
+        widget: select
+        options:
+          - Fikir Dizini
+          - Kayıt Dışı
+        default: Fikir Dizini
+      - label: Kategori
+        name: category
+        widget: select
+        allow_additional_values: true
+        options:
+          - Genel
+          - Tümü
+          - Siyaset
+          - Kültür
+          - Ekonomi
+          - Toplum
+          - Teknoloji
+          - Medya
+          - Röportaj
+          - Analiz
+          - Notlar
+      - label: Yayın Tarihi
+        name: pubDate
+        widget: datetime
+        time_format: false
+        date_format: YYYY-MM-DD
+        format: YYYY-MM-DD
+      - label: Güncelleme Tarihi
+        name: updatedDate
+        widget: datetime
+        required: false
+        time_format: false
+        date_format: YYYY-MM-DD
+        format: YYYY-MM-DD
+      - label: Kapak Görseli
+        name: heroImage
+        widget: image
+        required: false
+      - label: İçerik
+        name: body
+        widget: markdown
+        buttons:
+          - bold
+          - italic
+          - strikethrough
+          - code
+          - link
+          - heading-one
+          - heading-two
+          - quote
+          - bulleted-list
+          - numbered-list
+        editor_components:
+          - image
+          - code-block
+        modes:
+          - raw
+          - rich_text

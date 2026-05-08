@@ -5,35 +5,66 @@
  */
 
 :root {
-	--accent: #2337ff;
-	--accent-dark: #000d8a;
-	--black: 15, 18, 25;
-	--gray: 96, 115, 159;
-	--gray-light: 229, 233, 240;
-	--gray-dark: 34, 41, 57;
-	--gray-gradient: rgba(var(--gray-light), 50%), #fff;
+	--accent: #8b6b45;
+	--accent-dark: #5f432f;
+	--black: 33, 22, 17;
+	--gray: 112, 90, 73;
+	--gray-light: 223, 206, 182;
+	--gray-dark: 67, 50, 39;
+	--gray-gradient: rgba(250, 239, 220, 0.98), #eedbc0;
 	--box-shadow:
-		0 2px 6px rgba(var(--gray), 25%), 0 8px 24px rgba(var(--gray), 33%),
-		0 16px 32px rgba(var(--gray), 33%);
+		0 2px 10px rgba(52, 34, 24, 0.1), 0 18px 36px rgba(52, 34, 24, 0.14),
+		0 30px 60px rgba(52, 34, 24, 0.08);
 }
 body {
-	font-family: var(--font-atkinson);
+	position: relative;
+	isolation: isolate;
+	font-family: var(--font-atkinson), Georgia, 'Times New Roman', serif;
 	margin: 0;
 	padding: 0;
 	text-align: left;
-	background: linear-gradient(var(--gray-gradient)) no-repeat;
-	background-size: 100% 600px;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
 	color: rgb(var(--gray-dark));
-	font-size: 20px;
+	font-size: 19px;
 	line-height: 1.7;
+	background:
+		radial-gradient(circle at 50% 16%, rgba(255, 252, 245, 0.55), rgba(255, 252, 245, 0) 38%),
+		linear-gradient(180deg, #f4e9d9 0%, #efdfc8 48%, #ead6b6 100%);
+}
+
+body::before,
+body::after {
+	content: '';
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	z-index: -1;
+}
+
+body::before {
+	background:
+		radial-gradient(circle at 18% 20%, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0) 24%),
+		radial-gradient(circle at 82% 18%, rgba(255, 247, 227, 0.16), rgba(255, 247, 227, 0) 20%),
+		linear-gradient(90deg, rgba(122, 96, 70, 0.08), rgba(122, 96, 70, 0) 12%, rgba(122, 96, 70, 0) 88%, rgba(122, 96, 70, 0.08));
+	opacity: 0.9;
+}
+
+body::after {
+	background:
+		radial-gradient(circle at 50% 6%, rgba(255, 251, 243, 0.26), rgba(255, 251, 243, 0) 26%),
+		linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0) 30%, rgba(90, 66, 47, 0.03));
+	mix-blend-mode: soft-light;
 }
 main {
-	width: 720px;
-	max-width: calc(100% - 2em);
-	margin: auto;
-	padding: 3em 1em;
+	width: min(1160px, calc(100% - 1.2rem));
+	margin: 1rem auto 1.1rem;
+	padding: clamp(1rem, 2vw, 1.7rem);
+	background: linear-gradient(180deg, rgba(252, 247, 239, 0.84), rgba(245, 234, 216, 0.88));
+	border: 1px solid rgba(99, 69, 47, 0.18);
+	border-radius: 28px;
+	box-shadow: 0 18px 36px rgba(49, 31, 21, 0.12);
+	overflow: clip;
 }
 h1,
 h2,
@@ -44,18 +75,21 @@ h6 {
 	margin: 0 0 0.5rem 0;
 	color: rgb(var(--black));
 	line-height: 1.2;
+	font-family: Georgia, 'Times New Roman', serif;
+	letter-spacing: -0.03em;
 }
 h1 {
-	font-size: 3.052em;
+	font-size: clamp(2.5rem, 4.8vw, 4.4rem);
+	line-height: 0.94;
 }
 h2 {
-	font-size: 2.441em;
+	font-size: clamp(1.85rem, 3vw, 2.8rem);
 }
 h3 {
-	font-size: 1.953em;
+	font-size: clamp(1.35rem, 2.1vw, 1.95rem);
 }
 h4 {
-	font-size: 1.563em;
+	font-size: clamp(1.15rem, 1.8vw, 1.45rem);
 }
 h5 {
 	font-size: 1.25em;
@@ -65,13 +99,18 @@ b {
 	font-weight: 700;
 }
 a {
-	color: var(--accent);
+	color: var(--accent-dark);
 }
 a:hover {
 	color: var(--accent);
 }
 p {
 	margin-bottom: 1em;
+	max-width: 68ch;
+}
+
+li {
+	max-width: 68ch;
 }
 .prose p {
 	margin-bottom: 2em;
@@ -89,16 +128,19 @@ table {
 img {
 	max-width: 100%;
 	height: auto;
-	border-radius: 8px;
+	border-radius: 16px;
 }
 code {
-	padding: 2px 5px;
-	background-color: rgb(var(--gray-light));
-	border-radius: 2px;
+	padding: 0.14rem 0.35rem;
+	background-color: rgba(102, 78, 54, 0.1);
+	border-radius: 4px;
 }
 pre {
 	padding: 1.5em;
-	border-radius: 8px;
+	border-radius: 14px;
+	background: rgba(60, 43, 31, 0.96);
+	color: #f7ebda;
+	overflow: auto;
 }
 pre > code {
 	all: unset;
@@ -107,18 +149,136 @@ blockquote {
 	border-left: 4px solid var(--accent);
 	padding: 0 0 0 20px;
 	margin: 0;
-	font-size: 1.333em;
+	font-size: 1.24em;
 }
 hr {
 	border: none;
-	border-top: 1px solid rgb(var(--gray-light));
+	border-top: 1px solid rgba(102, 78, 54, 0.18);
+}
+
+.eyebrow {
+	margin: 0 0 0.85rem 0;
+	color: var(--accent);
+	font-size: 0.76rem;
+	font-weight: 700;
+	letter-spacing: 0.24em;
+	text-transform: uppercase;
+}
+
+.lede {
+	font-size: 1.06em;
+	line-height: 1.84;
+	color: rgb(var(--gray-dark));
+}
+
+.card-link {
+	display: block;
+	text-decoration: none;
+	color: inherit;
+}
+
+.card-surface {
+	height: 100%;
+	border: 1px solid rgba(102, 78, 54, 0.18);
+	border-radius: 20px;
+	background: rgba(253, 247, 236, 0.9);
+	box-shadow: 0 10px 24px rgba(52, 34, 24, 0.08);
+	overflow: hidden;
+	-webkit-backdrop-filter: blur(6px);
+	backdrop-filter: blur(6px);
+	transition:
+		transform 180ms ease,
+		box-shadow 180ms ease,
+		border-color 180ms ease;
+}
+
+.card-link:hover .card-surface,
+.card-link:focus-visible .card-surface {
+	transform: translateY(-3px);
+	box-shadow: 0 18px 30px rgba(52, 34, 24, 0.12);
+	border-color: rgba(139, 107, 69, 0.34);
+}
+
+.card-meta {
+	margin: 0;
+	font-size: 0.8rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: rgb(var(--gray));
+}
+
+.card-excerpt {
+	margin: 0;
+	color: rgb(var(--gray-dark));
+	font-size: 0.98rem;
+	line-height: 1.78;
+}
+
+.section-heading {
+	margin-bottom: 1rem;
+}
+
+.grid-list {
+	display: grid;
+	gap: 1.4rem;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.grid-list li {
+	max-width: none;
+}
+
+.grid-list img {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+.card-pill-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.45rem;
+}
+
+.meta-pill {
+	display: inline-flex;
+	align-items: center;
+	padding: 0.34rem 0.68rem;
+	border-radius: 999px;
+	background: rgba(102, 78, 54, 0.1);
+	color: var(--accent-dark);
+	font-size: 0.76rem;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
 }
 @media (max-width: 720px) {
 	body {
-		font-size: 18px;
+		font-size: 17px;
+		background:
+			radial-gradient(circle at 50% 14%, rgba(255, 243, 220, 0.42), rgba(255, 243, 220, 0) 34%),
+			linear-gradient(180deg, #5a3f2f 0%, #6a4934 12%, #e2c9a6 12%, #ecd7b8 100%);
 	}
 	main {
-		padding: 1em;
+		width: min(100%, calc(100% - 0.7rem));
+		margin-top: 0.7rem;
+		margin-bottom: 0.7rem;
+		padding: 0.9rem;
+		border-radius: 20px;
+	}
+	h1 {
+		font-size: clamp(2.1rem, 11vw, 3rem);
+	}
+	h2 {
+		font-size: clamp(1.6rem, 8vw, 2.2rem);
+	}
+	.eyebrow {
+		letter-spacing: 0.16em;
+	}
+	.lede {
+		font-size: 1.01em;
 	}
 }
 

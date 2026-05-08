@@ -6,41 +6,54 @@ import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Header from '../components/Header.astro';
 
-type Props = CollectionEntry<'blog'>['data'];
+type Props = Partial<CollectionEntry<'blog'>['data']>;
 
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 ---
 
-<html lang="en">
+<html lang="tr">
 	<head>
-		<BaseHead title={title} description={description} />
+		<BaseHead title={title ?? ''} description={description ?? ''} />
 		<style>
 			main {
-				width: calc(100% - 2em);
-				max-width: 100%;
-				margin: 0;
+				width: min(1040px, calc(100% - 1.2rem));
+				max-width: none;
+				margin: 1rem auto;
+				padding: 0.9rem;
 			}
 			.hero-image {
 				width: 100%;
+				margin-bottom: 1rem;
 			}
 			.hero-image img {
 				display: block;
 				margin: 0 auto;
-				border-radius: 12px;
+				border-radius: 18px;
 				box-shadow: var(--box-shadow);
 			}
 			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
+				width: min(760px, calc(100% - 1rem));
+				max-width: none;
 				margin: auto;
-				padding: 1em;
+				padding: clamp(1rem, 2vw, 1.5rem);
 				color: rgb(var(--gray-dark));
+				background: rgba(253, 247, 236, 0.9);
+				border: 1px solid rgba(102, 78, 54, 0.16);
+				border-radius: 24px;
+				box-shadow: 0 12px 30px rgba(52, 34, 24, 0.08);
 			}
 			.title {
 				margin-bottom: 1em;
-				padding: 1em 0;
+				padding: 0.4rem 0 1rem;
 				text-align: center;
 				line-height: 1;
+			}
+			.meta-pills {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: center;
+				gap: 0.5rem;
+				margin-bottom: 0.9rem;
 			}
 			.title h1 {
 				margin: 0 0 0.5em 0;
@@ -52,6 +65,9 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			.last-updated-on {
 				font-style: italic;
 			}
+			.title hr {
+				margin-top: 1rem;
+			}
 		</style>
 	</head>
 
@@ -60,16 +76,27 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 		<main>
 			<article>
 				<div class="hero-image">
-					{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
+					{
+						heroImage &&
+						(typeof heroImage === 'string' ? (
+							<img src={heroImage} alt="" loading="lazy" />
+						) : (
+							<Image width={1020} height={510} src={heroImage} alt="" />
+						))
+					}
 				</div>
 				<div class="prose">
 					<div class="title">
+						<div class="meta-pills">
+							{Astro.props.series && <span class="meta-pill">{Astro.props.series}</span>}
+							{Astro.props.category && <span class="meta-pill">{Astro.props.category}</span>}
+						</div>
 						<div class="date">
-							<FormattedDate date={pubDate} />
+							{pubDate && <FormattedDate date={pubDate} />}
 							{
 								updatedDate && (
 									<div class="last-updated-on">
-										Last updated on <FormattedDate date={updatedDate} />
+										Son güncelleme: <FormattedDate date={updatedDate} />
 									</div>
 								)
 							}
