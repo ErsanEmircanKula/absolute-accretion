@@ -4,32 +4,71 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Fikir Dizini CMS</title>
-		<link rel="cms-config-url" href="/admin/config.yml" />
 		<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+		<script>
+			window.CMS_MANUAL_INIT = true;
+		</script>
 	</head>
 	<body>
 		<script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 		<script>
-			if (window.location.pathname === '/admin') {
-				window.location.replace('/admin/');
-			}
+			const cmsConfig = {
+				backend: {
+					name: 'git-gateway',
+					branch: 'master',
+				},
+				publish_mode: 'editorial_workflow',
+				media_folder: 'src/assets/uploads',
+				public_folder: '../../assets/uploads',
+				locale: 'tr',
+				collections: [
+					{
+						name: 'blog',
+						label: 'Blog Yazıları',
+						folder: 'src/content/blog',
+						create: true,
+						slug: '{{slug}}',
+						fields: [
+							{ label: 'Başlık', name: 'title', widget: 'string' },
+							{ label: 'Kısa Açıklama', name: 'description', widget: 'text' },
+							{
+								label: 'Kategori',
+								name: 'category',
+								widget: 'string',
+								required: false,
+								hint: 'İstediğiniz kategori adını yazabilirsiniz (ör. Gündem, Sanat, Teknoloji).',
+							},
+							{
+								label: 'Yayın Tarihi',
+								name: 'pubDate',
+								widget: 'datetime',
+								time_format: false,
+								date_format: 'YYYY-MM-DD',
+								format: 'YYYY-MM-DD',
+							},
+							{
+								label: 'Güncelleme Tarihi',
+								name: 'updatedDate',
+								widget: 'datetime',
+								required: false,
+								time_format: false,
+								date_format: 'YYYY-MM-DD',
+								format: 'YYYY-MM-DD',
+							},
+							{
+								label: 'Kapak Görseli',
+								name: 'heroImage',
+								widget: 'image',
+								required: false,
+							},
+							{ label: 'İçerik', name: 'body', widget: 'markdown' },
+						],
+					},
+				],
+			};
 
-			const identityHash = window.location.hash || '';
-			const hasIdentityToken = identityHash.includes('invite_token=') || identityHash.includes('recovery_token=');
-
-			if (hasIdentityToken && !window.location.pathname.startsWith('/admin')) {
-				window.location.replace(`/admin/${identityHash}`);
-			}
-
-			if (window.netlifyIdentity) {
-				window.netlifyIdentity.on('init', (user) => {
-					if (!user) {
-						window.netlifyIdentity.on('login', () => {
-							window.location.href = '/admin/';
-						});
-					}
-				});
-				window.netlifyIdentity.on('login', () => window.location.reload());
+			if (window.CMS) {
+				window.CMS.init({ config: cmsConfig });
 			}
 		</script>
 	</body>
